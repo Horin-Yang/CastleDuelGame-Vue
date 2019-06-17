@@ -12,7 +12,7 @@ var state = {
   // TODO Other things
   // 游戏
   turn: 1,
-  player: [
+  players: [
     {
       name: 'Anne of Cleves',
     },
