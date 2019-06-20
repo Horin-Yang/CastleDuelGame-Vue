@@ -7,8 +7,8 @@ new Vue({
     template: `<div id="#app">
     <top-bar :turn="turn" :current-player-index="currentPlayerIndex" :players="players" />
     <!-- <card :def="testCard" @play="handlePlay" /> -->
-    <transition name="fade">
-    <hand :cards="testHand" v-if="!activeOverlay" />
+    <transition name="hand">
+    <hand v-if="!activeOverlay" :cards="testHand" @card-play="testPlayCard" />
     </transition>
     </div>`,
 
@@ -24,8 +24,8 @@ new Vue({
     },
 
     methods: {
-        handlePlay(color, number) {
-            console.log('You played a card!', 'color=', color, 'number=', number)
+        handlePlay() {
+            console.log('You played a card!')
         },
 
         createTestHand() {
@@ -60,6 +60,12 @@ new Vue({
         created() {
             this.testHand = this.createTestHand()
         },
+
+        testPlayCard(card) {
+            // 将卡牌从玩家手中移除即可
+            const index = this.testHand.indexOf(card)
+            this.testHand.splice(index, 1)
+        }
     },
 })
 
