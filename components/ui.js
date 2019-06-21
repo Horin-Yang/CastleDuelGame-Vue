@@ -32,8 +32,10 @@ Vue.component('card', {
 Vue.component('hand', {
     template: `<div class="hand">
         <div class="wrapper">
-            <!-- 卡牌 -->
-            <card v-for="card of cards" :key="cardUid" :def="card.def" @play=handlePlay(card) />
+            <transition-group name="card" tag="div" class="cards">
+                <!-- 卡牌 -->
+                <card v-for="card of cards" :key="card.uid" :def="card.def" @play=handlePlay(card) />
+            </transition-group>
         </div>
     </div>`,
 
