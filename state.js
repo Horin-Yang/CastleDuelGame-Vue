@@ -18,9 +18,29 @@ var state = {
   players: [
     {
       name: 'Anne of Cleves',
+      // 游戏开始时状态
+      food: 10,
+      health: 10,
+      // 是否跳过下个回合
+      skipTurn: false,
+      // 跳过了上个回合
+      skippedTurn: false,
+      hand: [],
+      lastPlayedCardId: null,
+      deed: false,
     },
     {
       name: 'William the Bald',
+      // 游戏开始时状态
+      food: 10,
+      health: 10,
+      // 是否跳过下个回合
+      skipTurn: false,
+      // 跳过了上个回合
+      skippedTurn: false,
+      hand: [],
+      lastPlayedCardId: null,
+      deed: false,
     },
   ],
   currentPlayerIndex: Math.round(Math.random()),

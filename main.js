@@ -10,6 +10,9 @@ new Vue({
     <transition name="hand">
     <hand v-if="!activeOverlay" :cards="testHand" @card-play="testPlayCard" />
     </transition>
+    <overlay>
+        hello world!
+    </overlay>
     </div>`,
 
     // 比较实例数据对象和全局state对象
