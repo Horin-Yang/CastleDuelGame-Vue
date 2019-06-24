@@ -5,14 +5,19 @@ new Vue({
     data: state,
 
     template: `<div id="#app">
-    <top-bar :turn="turn" :current-player-index="currentPlayerIndex" :players="players" />
-    <!-- <card :def="testCard" @play="handlePlay" /> -->
-    <transition name="hand">
-    <hand v-if="!activeOverlay" :cards="testHand" @card-play="testPlayCard" />
-    </transition>
-    <overlay>
-        hello world!
-    </overlay>
+        <top-bar :turn="turn" :current-player-index="currentPlayerIndex" :players="players" />
+        <!-- <card :def="testCard" @play="handlePlay" /> -->
+        <transition name="hand">
+        <hand v-if="!activeOverlay" :cards="testHand" @card-play="testPlayCard" />
+        </transition>
+        <transition name="fade">
+            <div class="overlay-background" v-if="activeOverlay" />
+        </transition>
+        <transition name="zoom">
+            <overlay v-if="activeOverlay" :key="activeOverlay">
+                <component :is="'overlay-content-' + activeOverlay" :player="currentPlayer" :opponent="currentOpponent" :players="players" />
+            </overlay>
+        </transition>
     </div>`,
 
     // 比较实例数据对象和全局state对象

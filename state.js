@@ -47,4 +47,17 @@ var state = {
 
   // 临时属性，测试用
   testHand: [],
+
+  get currentPlayer() {
+    return state.players[state.currentPlayerIndex]
+  },
+
+  get currentOpponentId() {
+    return state.currentPlayerIndex === 0 ? 1 : 0
+  },
+
+  get currentOpponent() {
+    return state.players[state.currentOpponentId]
+  },
 }
+

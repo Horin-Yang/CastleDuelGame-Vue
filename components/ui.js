@@ -66,7 +66,7 @@ Vue.component('overlay', {
 Vue.component('overlay-content-player-turn', {
     template: `<div>
         <div class="big" v-if="player.skipTurn">{{ player.name }},<br>your turn is skipped!</div>
-        <div class=:"big" v-else>{{ player.name }},<br>your turn has come!</div>
+        <div class="big" v-else>{{ player.name }},<br>your turn has come!</div>
         <div>Tap to continue</div>
     </div>`,
 
@@ -109,7 +109,7 @@ Vue.component('overlay-content-game-over', {
     template: `<div>
         <div class="big">Game Over</div>
         <player-result v-for="player in players :player="player" />
-    </dic>`,
+    </div>`,
 
     props: ['players'],
 })
