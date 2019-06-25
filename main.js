@@ -6,6 +6,10 @@ new Vue({
 
     template: `<div id="#app">
         <top-bar :turn="turn" :current-player-index="currentPlayerIndex" :players="players" />
+        <div class="world">
+            <castle v-for="(player, index) in players" :player="player" :index="index" />
+            <div class="index" />
+        </div>
         <!-- <card :def="testCard" @play="handlePlay" /> -->
         <transition name="hand">
         <hand v-if="!activeOverlay" :cards="testHand" @card-play="testPlayCard" />
