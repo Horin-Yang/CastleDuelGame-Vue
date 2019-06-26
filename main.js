@@ -8,7 +8,7 @@ new Vue({
         <top-bar :turn="turn" :current-player-index="currentPlayerIndex" :players="players" />
         <div class="world">
             <castle v-for="(player, index) in players" :player="player" :index="index" />
-            <div class="index" />
+            <div class="land" />
         </div>
         <!-- <card :def="testCard" @play="handlePlay" /> -->
         <transition name="hand">
@@ -69,9 +69,9 @@ new Vue({
         },
 
         // 生命周期钩子 created 初始化 hand
-        created() {
-            this.testHand = this.createTestHand()
-        },
+        // created() {
+        //     this.testHand = this.createTestHand()
+        // },
 
         testPlayCard(card) {
             // 将卡牌从玩家手中移除即可
@@ -85,3 +85,11 @@ new Vue({
 window.addEventListener('resize', () => {
     state.worldRatio = getWorldRatio()
 })
+
+// Tween.js
+requestAnimationFrame(animate);
+
+function animate(time) {
+    requestAnimationFrame(animate);
+    TWEEN.update(time);
+}
