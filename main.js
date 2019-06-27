@@ -15,7 +15,7 @@ new Vue({
         </div>
         <!-- <card :def="testCard" @play="handlePlay" /> -->
         <transition name="hand">
-        <hand v-if="!activeOverlay" :cards="testHand" @card-play="testPlayCard" />
+        <hand v-if="!activeOverlay" :cards="currentHand" @card-play="testPlayCard" />
         </transition>
         <transition name="fade">
             <div class="overlay-background" v-if="activeOverlay" />
@@ -26,11 +26,6 @@ new Vue({
             </overlay>
         </transition>
     </div>`,
-
-    // 比较实例数据对象和全局state对象
-    mounted() {
-        console.log(this.$data === state)
-    },
 
     computed: {
         testCard() {
@@ -43,18 +38,23 @@ new Vue({
             console.log('You played a card!')
         },
 
-        createTestHand() {
-            const cards = []
-            // 遍历获取卡牌的id
-            const ids = Object.keys(cards)
+        // createTestHand() {
+        //     const cards = []
+        //     // 遍历获取卡牌的id
+        //     const ids = Object.keys(cards)
 
-            // 抽取5张牌
-            for (let i = 0; i < 5; i++) {
-                cards.push(testDrawCard())
-            }
+        //     // 抽取5张牌
+        //     for (let i = 0; i < 5; i++) {
+        //         cards.push(testDrawCard())
+        //     }
 
-            return cards
-        },
+        //     return cards
+        // },
+
+        // // 生命周期钩子 created 初始化 hand
+        // created() {
+        //     this.testHand = this.createTestHand()
+        // },
 
         testDrawCard() {
             // 使用id随机选取一张卡牌
@@ -71,16 +71,17 @@ new Vue({
             }
         },
 
-        // 生命周期钩子 created 初始化 hand
-        // created() {
-        //     this.testHand = this.createTestHand()
-        // },
-
         testPlayCard(card) {
             // 将卡牌从玩家手中移除即可
             const index = this.testHand.indexOf(card)
             this.testHand.splice(index, 1)
         }
+    },
+
+    // 比较实例数据对象和全局state对象
+    mounted() {
+        // console.log(this.$data === state)
+        beginGame()
     },
 })
 
@@ -95,4 +96,8 @@ requestAnimationFrame(animate);
 function animate(time) {
     requestAnimationFrame(animate);
     TWEEN.update(time);
+}
+
+function beginGame() {
+    state.players.forEach(drawInitialHand)
 }

@@ -59,5 +59,12 @@ var state = {
   get currentOpponent() {
     return state.players[state.currentOpponentId]
   },
+
+  drawpile: addCardToPile,
+  discardpile: {},
+
+  get currentHand() {
+    return state.currentPlayer.hand
+  },
 }
 
