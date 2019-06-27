@@ -89,3 +89,74 @@ Vue.component('banner-bar', {
         }
     },
 })
+
+const cloudAnimationDurations = {
+    min: 10000, //10秒
+    max: 50000, //50秒
+}
+
+Vue.component('cloud', {
+    template: `<div class="cloud" :class="'cloud-' + type" :style="style">
+        <img :src="'svg/cloud' + type + '.svg'" @load="initPosition" />
+    </div>`,
+
+    props: ['type'],
+
+    data() {
+        return {
+            style: {
+                transform: 'none',
+                zIndex: 0,
+            },
+        }
+    },
+
+    methods: {
+        setPosition(left, top) {
+            // 使用 transform 可以获得更好的性能
+            this.style.transform = `translate(${left}px, ${top}px)`
+        },
+
+        initPosition() {
+            // 元素宽度
+            const width = this.$el.clientWidth
+            this.setPosition(-width, 0)
+        },
+
+        startAnimation(delay = 0) {
+            const vm = this
+            // 元素宽度
+            const width = this.$el.clientWidth
+
+            // 随机动画持续时间
+            const { min, max } = cloudAnimationDurations
+            const animationDuration = Math.random() * (max - min) + min
+
+            // 将速度快的云朵放到最前面
+            this.style.zIndex = Math.round(max - animationDuration)
+
+            // 动画在这
+
+            // 随机位置
+            const top = Math.random() * (window.innerHeight * 0.3)
+
+            new TWEEN.Tween({ value: -width })
+                .to({ value: window.innerWidth }, animationDuration)
+                .delay(delay)
+                .onUpdate(function() {
+                    vm.setPosition(this.value, top)
+                })
+                .onComplete(() => {
+                    // 随即延迟
+                    this.startAnimation(Math.random() * 10000)
+                })
+                .start()
+        },
+    },
+    mounted () {
+        // 以负值延迟开始动画
+        // 所以动画将从中途开始
+        this.startAnimation(-Math.random() * cloudAnimationDurations.min)
+    },
+})
+
