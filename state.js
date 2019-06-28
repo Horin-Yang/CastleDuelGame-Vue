@@ -46,7 +46,7 @@ var state = {
   currentPlayerIndex: Math.round(Math.random()),
 
   // 临时属性，测试用
-  testHand: [],
+  // testHand: [],
 
   get currentPlayer() {
     return state.players[state.currentPlayerIndex]
@@ -66,5 +66,7 @@ var state = {
   get currentHand() {
     return state.currentPlayer.hand
   },
+
+  canplay: false,
 }
 
