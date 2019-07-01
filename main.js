@@ -21,7 +21,7 @@ new Vue({
             <div class="overlay-background" v-if="activeOverlay" />
         </transition>
         <transition name="zoom">
-            <overlay v-if="activeOverlay" :key="activeOverlay">
+            <overlay v-if="activeOverlay" :key="activeOverlay" @close="handleOverlayClose">
                 <component :is="'overlay-content-' + activeOverlay" :player="currentPlayer" :opponent="currentOpponent" :players="players" />
             </overlay>
         </transition>
@@ -91,6 +91,10 @@ new Vue({
             console.log('card leave end');
             applyCard()
         },
+
+        handleOverlayClose () {
+            overlayCloseHandlers[this.activeOverlay]()
+        },
     },
 
     // 比较实例数据对象和全局state对象
@@ -99,6 +103,25 @@ new Vue({
         beginGame()
     },
 })
+
+var overlayCloseHandlers = {
+    'player-turn' () {
+        if (state.turn = 1) {
+            state.activeOverlay = 'last-play'
+        } else {
+            newTurn()
+        }
+    },
+
+    'last=-play' () {
+        newTurn()
+    },
+
+    'game-over' () {
+        // 重新加载游戏
+        document.location.reload()
+    },
+}
 
 // 窗口大小变化的处理
 window.addEventListener('resize', () => {
@@ -185,5 +208,5 @@ function startTurn() {
 }
 
 function endGame() {
-    // TODO
+    state.activeOverlay = 'game-over'
 }
