@@ -15,7 +15,7 @@ new Vue({
         </div>
         <!-- <card :def="testCard" @play="handlePlay" /> -->
         <transition name="hand">
-        <hand v-if="!activeOverlay" :cards="currentHand" @card-play="handlePlayCard" @card-leave-end="handleCardLeaveEnd" />
+            <hand v-if="!activeOverlay" :cards="currentHand" @card-play="handlePlayCard" @card-leave-end="handleCardLeaveEnd" />
         </transition>
         <transition name="fade">
             <div class="overlay-background" v-if="activeOverlay" />
@@ -28,9 +28,9 @@ new Vue({
     </div>`,
 
     computed: {
-        testCard() {
-            return cards.archers
-        },
+        // testCard() {
+        //     return cards.archers
+        // },
 
         cssClass() {
             return {
@@ -40,9 +40,9 @@ new Vue({
     },
 
     methods: {
-        handlePlay() {
-            console.log('You played a card!')
-        },
+        // handlePlay() {
+        //     console.log('You played a card!')
+        // },
 
         // createTestHand() {
         //     const cards = []
@@ -136,6 +136,9 @@ function animate(time) {
     TWEEN.update(time);
 }
 
+// Gameplay
+state.activeOverlay = 'player-turn'
+
 function beginGame() {
     state.players.forEach(drawInitialHand)
 }
@@ -150,7 +153,7 @@ function playCard(card) {
         state.currentPlayer.hand.splice(index, 1)
 
         // 卡牌放到弃牌堆中
-        addCardToPile(state.discardpile, card.id)
+        addCardToPile(state.discardPile, card.id)
     }
 }
 
